@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09090d">
+<meta name="description" content="Deskora — A free way to customize your Windows desktop.">
+<title>Deskora — Make Windows Your Own</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #09090d;
+  --surface: #121219;
+  --border: #252530;
+  --text: #f6f4fb;
+  --muted: #9996a8;
+  --purple: #a783ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1160px, 90%);
+  margin: auto;
+}
+
+/* NAVIGATION */
+
+nav {
+  height: 76px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.logo span { color: var(--purple); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: 13px;
+  transition: .2s;
+}
+
+.nav-links a:hover { color: white; }
+
+.nav-button {
+  background: white;
+  color: #111 !important;
+  padding: 11px 18px;
+  border-radius: 7px;
+  font-weight: 700;
+}
+
+/* HERO */
+
+.hero {
+  padding: 95px 0 80px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 650px;
+  height: 500px;
+  background: #7444c9;
+  opacity: .12;
+  filter: blur(150px);
+  right: -200px;
+  top: -150px;
+  pointer-events: none;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 55px;
+  align-items: center;
+  position: relative;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  color: #c1a9ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.04;
+  letter-spacing: -4px;
+}
+
+.gradient {
+  background: linear-gradient(100deg,#a783ff,#d4a2ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-copy > p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+  margin-top: 23px;
+  max-width: 420px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 21px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.primary {
+  background: linear-gradient(110deg,#9166f0,#bd91ff);
+  color: #100d17;
+}
+
+.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px #9669ef44;
+}
+
+.secondary {
+  border: 1px solid #383440;
+  color: white;
+}
+
+.secondary:hover { background: #17151f; }
+
+.free-note {
+  margin-top: 23px;
+  font-size: 11px;
+  color: #aaa3b8;
+  letter-spacing: .8px;
+}
+
+/* DESKTOP PREVIEW */
+
+.desktop-frame {
+  position: relative;
+  padding: 9px;
+  background: #17151f;
+  border: 1px solid #393047;
+  border-radius: 13px;
+  box-shadow: 0 30px 90px #0009;
+  transform: perspective(1200px) rotateY(-3deg);
+}
+
+.desktop {
+  position: relative;
+  height: 410px;
+  border-radius: 7px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,transparent 45%,#070712aa 100%),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=85") center/cover;
+}
+
+.desktop-widgets {
+  position: absolute;
+  top: 27px;
+  left: 27px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.clock-widget {
+  text-shadow: 0 3px 15px #0008;
+}
+
+.clock {
+  font-size: 49px;
+  font-weight: 600;
+  letter-spacing: -3px;
+}
+
+.date {
+  font-size: 12px;
+  color: #eee;
+  margin-top: -3px;
+}
+
+.weather-widget {
+  width: 150px;
+  padding: 13px;
+  border: 1px solid #ffffff30;
+  border-radius: 9px;
+  background: #17172575;
+  backdrop-filter: blur(16px);
+}
+
+.weather-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #eee;
+}
+
+.weather-temp {
+  font-size: 27px;
+  font-weight: 600;
+  margin-top: 9px;
+}
+
+.weather-description {
+  font-size: 10px;
+  color: #ddd;
+  margin-top: 2px;
+}
+
+.desktop-label {
+  position: absolute;
+  right: 24px;
+  top: 25px;
+  text-align: right;
+  text-shadow: 0 2px 12px #0009;
+}
+
+.desktop-label strong {
+  display: block;
+  font-size: 14px;
+}
+
+.desktop-label span {
+  color: #ddd;
+  font-size: 10px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* APPLICATION DOCK */
+
+.dock {
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border: 1px solid #ffffff35;
+  border-radius: 13px;
+  background: #161622b8;
+  backdrop-filter: blur(22px);
+  box-shadow: 0 8px 30px #0006;
+}
+
+.dock-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: #ffffff12;
+  transition: .2s;
+}
+
+.dock-icon:hover {
+  transform: translateY(-5px);
+  background: #ffffff30;
+}
+
+.dock-icon img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+  display: block;
+}
+
+.dock-divider {
+  height: 25px;
+  width: 1px;
+  background: #ffffff35;
+  margin: 0 2px;
+}
+
+.desktop-taskbar {
+  height: 28px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 13px;
+  gap: 12px;
+  background: #11111b99;
+  backdrop-filter: blur(15px);
+  font-size: 9px;
+  color: #eee;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 85px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-heading { margin-bottom: 35px; }
+
+.section-heading h2 {
+  font-size: 34px;
+  letter-spacing: -1.5px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 11px;
+  line-height: 1.7;
+}
+
+/* FEATURES */
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+}
+
+.feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 24px;
+  transition: .2s;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: #59447e;
+}
+
+.feature-icon {
+  color: var(--purple);
+  font-size: 23px;
+  margin-bottom: 18px;
+}
+
+.feature h3 {
+  font-size: 15px;
+  margin-bottom: 9px;
+}
+
+.feature p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* FREE */
+
+.free-section {
+  padding: 50px 0;
+  border-top: 1px solid var(--border);
+}
+
+.free-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #39304c;
+  background: linear-gradient(110deg,#171321,#111119);
+}
+
+.free-box h2 { font-size: 22px; }
+
+.free-box p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.free-tag {
+  color: #c7afff;
+  border: 1px solid #7559a5;
+  padding: 11px 16px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ABOUT */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.about-layout h2 {
+  font-size: 35px;
+  letter-spacing: -1.5px;
+  margin-bottom: 15px;
+}
+
+.about-layout p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.about-panel {
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.about-panel strong {
+  color: var(--purple);
+  font-size: 25px;
+}
+
+.about-panel p {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+/* DOWNLOAD */
+
+.download {
+  text-align: center;
+  padding: 90px 0;
+  border-top: 1px solid var(--border);
+}
+
+.download h2 {
+  font-size: clamp(30px,5vw,43px);
+  letter-spacing: -1.5px;
+}
+
+.download p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 15px 0 27px;
+}
+
+.download-status {
+  display: block;
+  color: var(--purple);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-top: 16px;
+}
+
+/* FOOTER */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 27px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer p,
+.footer a:not(.logo) {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .hero-copy { text-align: center; }
+
+  .hero-copy > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .buttons { justify-content: center; }
+
+  .desktop-frame { transform: none; }
+
+  .about-layout { grid-template-columns: 1fr; }
+}
+
+@media(max-width:650px) {
+  .nav { height: 68px; }
+
+  .nav-links { gap: 13px; }
+
+  .nav-links a { font-size: 11px; }
+
+  .nav-links a:nth-child(2) { display: none; }
+
+  .nav-button { padding: 9px 12px; }
+
+  .hero { padding: 70px 0; }
+
+  .hero h1 { letter-spacing: -2.5px; }
+
+  .desktop { height: 340px; }
+
+  .clock { font-size: 38px; }
+
+  .desktop-label { display: none; }
+
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+
+  .free-box {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media(max-width:430px) {
+  .features-grid { grid-template-columns: 1fr; }
+
+  .desktop { height: 300px; }
+
+  .weather-widget { width: 125px; }
+
+  .dock {
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .dock-icon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .dock-icon img {
+    width: 19px;
+    height: 19px;
+  }
+
+  .section-heading h2 { font-size: 29px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav">
+    <a href="#" class="logo">desk<span>ora</span></a>
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#download" class="nav-button">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+
+<header class="hero">
+  <div class="container hero-layout">
+
+    <div class="hero-copy">
+      <div class="eyebrow">WINDOWS 11 CUSTOMIZATION</div>
+
+      <h1>
+        Make Windows<br>
+        <span class="gradient">your own.</span>
+      </h1>
+
+      <p>
+        A cleaner, more personal desktop experience.
+        Customize your workspace with Deskora.
+      </p>
+
+      <div class="buttons">
+        <a href="#download" class="button primary">Get Deskora ↗</a>
+        <a href="#features" class="button secondary">Explore features</a>
+      </div>
+
+      <div class="free-note">
+        100% FREE. NO SUBSCRIPTIONS.
+      </div>
+    </div>
+
+    <!-- CUSTOMIZED DESKTOP PREVIEW -->
+
+    <div class="desktop-frame">
+      <div class="desktop">
+
+        <div class="desktop-widgets">
+
+          <div class="clock-widget">
+            <div class="clock">10:24</div>
+            <div class="date">Wednesday, November 12</div>
+          </div>
+
+          <div class="weather-widget">
+            <div class="weather-top">
+              <span>Weather</span>
+              <span>☀</span>
+            </div>
+            <div class="weather-temp">18°</div>
+            <div class="weather-description">Partly cloudy</div>
+          </div>
+
+        </div>
+
+        <div class="desktop-label">
+          <strong>YOUR WORKSPACE</strong>
+          <span>Designed with Deskora</span>
+        </div>
+
+        <!-- REAL APPLICATION LOGOS -->
+
+        <div class="dock">
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord">
+          </div>
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify">
+          </div>
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/steam/FFFFFF" alt="Steam">
+          </div>
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/googlechrome/FFFFFF" alt="Google Chrome">
+          </div>
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/microsoftedge/FFFFFF" alt="Microsoft Edge">
+          </div>
+
+          <div class="dock-divider"></div>
+
+          <div class="dock-icon">
+            <img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="Visual Studio Code">
+          </div>
+
+        </div>
+
+        <div class="desktop-taskbar">
+          <span>⌃</span>
+          <span>◉</span>
+          <span>Wi-Fi</span>
+          <span>10:24</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- FEATURES -->
+
+<section id="features">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>Everything in one place.</h2>
+      <p>Tools to create a desktop that feels like your own.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature">
+        <div class="feature-icon">◈</div>
+        <h3>Desktop Studio</h3>
+        <p>Customize the look and layout of your desktop.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">▤</div>
+        <h3>Dock Studio</h3>
+        <p>Organize your favorite applications in one place.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">◇</div>
+        <h3>Widget Studio</h3>
+        <p>Add useful widgets around your workspace.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">◐</div>
+        <h3>Theme Studio</h3>
+        <p>Personalize the visual style of your desktop.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">▧</div>
+        <h3>Live Wallpapers</h3>
+        <p>Bring your desktop to life with video backgrounds.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">✦</div>
+        <h3>Icon Studio</h3>
+        <p>Give your applications a consistent look.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FREE -->
+
+<section class="free-section">
+  <div class="container">
+
+    <div class="free-box">
+      <div>
+        <h2>Free. And staying free.</h2>
+        <p>No subscriptions. No premium plans. No locked features.</p>
+      </div>
+
+      <div class="free-tag">100% FREE</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+  <div class="container about-layout">
+
+    <div>
+      <div class="eyebrow">ABOUT DESKORA</div>
+
+      <h2>Windows, <span class="gradient">reimagined.</span></h2>
+
+      <p>
+        Deskora is being created to make Windows
+        more personal, organized and enjoyable.
+        One place for the tools you need to build
+        your own desktop experience.
+      </p>
+    </div>
+
+    <div class="about-panel">
+      <strong>deskora.</strong>
+      <p>
+        Built around one simple idea:
+        your computer should feel like yours.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+
+<section class="download" id="download">
+  <div class="container">
+
+    <h2>Your desktop, <span class="gradient">your rules.</span></h2>
+
+    <p>
+      Deskora for Windows 11 is currently in development.
+    </p>
+
+    <a href="#download" class="button primary"
+       onclick="alert('Deskora is not available to download yet. Stay tuned!'); return false;">
+      Download for Windows ↗
+    </a>
+
+    <span class="download-status">COMING SOON · WINDOWS 11</span>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer">
+    <a href="#" class="logo">desk<span>ora</span></a>
+    <p>© 2026 Deskora. All rights reserved.</p>
+    <a href="#features">Features</a>
+  </div>
+</footer>
+
+</body>
+</html>
