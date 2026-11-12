@@ -540,6 +540,29 @@ section {
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
+
+.top-countdown-bar {
+  padding: 20px 0 22px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg,#100e17,#171222,#100e17);
+}
+.top-countdown-label {
+  color: #c7afff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.top-countdown-bar .countdown {
+  margin: 12px auto 0;
+}
+.top-countdown-bar .countdown-unit {
+  min-width: 76px;
+  padding: 11px 10px;
+}
+.top-countdown-bar .countdown-unit strong {
+  font-size: 27px;
+}
 @media(max-width:430px) {
   .countdown { gap: 7px; }
   .countdown-unit { min-width: 0; flex: 1; padding: 13px 5px; }
@@ -662,6 +685,20 @@ footer {
     </div>
   </div>
 </nav>
+
+<!-- TOP COUNTDOWN -->
+
+<div class="top-countdown-bar">
+  <div class="container">
+    <div class="top-countdown-label">DESKORA COUNTDOWN · SATURDAY 18:00</div>
+    <div class="countdown" aria-label="Countdown to Saturday November 14 at 6 PM">
+      <div class="countdown-unit"><strong id="countdown-days">00</strong><span>Days</span></div>
+      <div class="countdown-unit"><strong id="countdown-hours">00</strong><span>Hours</span></div>
+      <div class="countdown-unit"><strong id="countdown-minutes">00</strong><span>Minutes</span></div>
+      <div class="countdown-unit"><strong id="countdown-seconds">00</strong><span>Seconds</span></div>
+    </div>
+  </div>
+</div>
 
 <main>
 
@@ -874,13 +911,6 @@ footer {
     <p>
       Deskora for Windows 11 is currently in development.
     </p>
-
-    <div class="countdown" aria-label="Countdown to Saturday November 14 at 6 PM">
-      <div class="countdown-unit"><strong id="countdown-days">00</strong><span>Days</span></div>
-      <div class="countdown-unit"><strong id="countdown-hours">00</strong><span>Hours</span></div>
-      <div class="countdown-unit"><strong id="countdown-minutes">00</strong><span>Minutes</span></div>
-      <div class="countdown-unit"><strong id="countdown-seconds">00</strong><span>Seconds</span></div>
-    </div>
 
 <a href="#download" class="button primary"
        onclick="alert('Deskora is not available to download yet. Stay tuned!'); return false;">
