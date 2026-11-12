@@ -553,6 +553,22 @@ section {
   font-weight: 800;
   letter-spacing: 2px;
 }
+.top-countdown-message {
+  color: var(--text);
+  font-size: 15px;
+  margin: 8px 0 0;
+}
+.top-countdown-bar.is-released {
+  padding: 27px 0;
+}
+.top-countdown-bar.is-released .top-countdown-label {
+  color: #b99aff;
+}
+.top-countdown-bar.is-released .top-countdown-message {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 9px;
+}
 .top-countdown-bar .countdown {
   margin: 12px auto 0;
 }
@@ -690,8 +706,9 @@ footer {
 
 <div class="top-countdown-bar">
   <div class="container">
-    <div class="top-countdown-label">DESKORA COUNTDOWN · SATURDAY 18:00</div>
-    <div class="countdown" aria-label="Countdown to Saturday November 14 at 6 PM">
+    <div class="top-countdown-label" id="countdown-label">THE FIRST DESKORA BETA IS COMING</div>
+    <p class="top-countdown-message" id="countdown-message">The first beta version launches in:</p>
+    <div class="countdown" id="countdown" aria-label="Countdown to the first Deskora beta release">
       <div class="countdown-unit"><strong id="countdown-days">00</strong><span>Days</span></div>
       <div class="countdown-unit"><strong id="countdown-hours">00</strong><span>Hours</span></div>
       <div class="countdown-unit"><strong id="countdown-minutes">00</strong><span>Minutes</span></div>
@@ -936,6 +953,10 @@ footer {
 (() => {
   // Saturday, November 14, 2026 at 18:00 Finnish time (UTC+2).
   const launchTime = new Date("2026-11-14T18:00:00+02:00").getTime();
+  const bar = document.querySelector(".top-countdown-bar");
+  const label = document.getElementById("countdown-label");
+  const message = document.getElementById("countdown-message");
+  const countdown = document.getElementById("countdown");
   const fields = {
     days: document.getElementById("countdown-days"),
     hours: document.getElementById("countdown-hours"),
@@ -944,7 +965,16 @@ footer {
   };
 
   function updateCountdown() {
-    const remaining = Math.max(0, launchTime - Date.now());
+    const remaining = launchTime - Date.now();
+
+    if (remaining <= 0) {
+      label.textContent = "DESKORA BETA RELEASE";
+      message.textContent = "The first Deskora beta is now released!";
+      countdown.hidden = true;
+      bar.classList.add("is-released");
+      return;
+    }
+
     fields.days.textContent = String(Math.floor(remaining / 86400000)).padStart(2, "0");
     fields.hours.textContent = String(Math.floor((remaining % 86400000) / 3600000)).padStart(2, "0");
     fields.minutes.textContent = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, "0");
